@@ -1,26 +1,22 @@
-import { cloudflare } from '@cloudflare/vite-plugin'
-import tailwindcss from '@tailwindcss/vite'
-import { devtools } from '@tanstack/devtools-vite'
-import { tanstackStart } from '@tanstack/react-start/plugin/vite'
-import viteReact from '@vitejs/plugin-react'
-import { fileURLToPath, URL } from 'url'
-import { defineConfig } from 'vite'
-import viteTsConfigPaths from 'vite-tsconfig-paths'
+import { cloudflare } from "@cloudflare/vite-plugin";
+import tailwindcss from "@tailwindcss/vite";
+import { devtools } from "@tanstack/devtools-vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { fileURLToPath, URL } from "url";
+import { defineConfig } from "vite";
 
 const config = defineConfig({
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
+    tsconfigPaths: true,
   },
   plugins: [
     tailwindcss(),
     devtools(),
-    cloudflare({ viteEnvironment: { name: 'ssr' } }),
-    // this is the plugin that enables path aliases
-    viteTsConfigPaths({
-      projects: ['./tsconfig.json'],
-    }),
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
 
     tanstackStart({
       prerender: {
@@ -29,11 +25,11 @@ const config = defineConfig({
       },
       sitemap: {
         enabled: true,
-        host: process.env.SITE_URL || 'https://pranavmandava.com',
+        host: process.env.SITE_URL || "https://pranavmandava.com",
       },
     }),
     viteReact(),
   ],
-})
+});
 
-export default config
+export default config;
