@@ -122,6 +122,12 @@
   body {
     @apply bg-background font-sans text-foreground;
   }
+  a:not([data-slot="badge"]):not([data-slot="button"]) {
+    @apply text-primary underline underline-offset-2 decoration-primary/50 transition-colors;
+  }
+  a:not([data-slot="badge"]):not([data-slot="button"]):hover {
+    @apply text-foreground decoration-foreground/70;
+  }
 }
 
 @layer components {
@@ -129,7 +135,7 @@
     @apply prose prose-sm max-w-none
       prose-headings:text-foreground prose-headings:font-semibold
       prose-p:text-foreground/80 prose-p:leading-relaxed
-      prose-a:text-primary prose-a:underline hover:prose-a:text-primary/80
+      prose-a:text-primary prose-a:underline hover:prose-a:text-foreground
       prose-strong:text-foreground
       prose-code:text-foreground prose-code:bg-muted prose-code:px-1 prose-code:rounded
       prose-pre:bg-muted prose-pre:text-foreground
