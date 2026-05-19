@@ -3,7 +3,7 @@ title: "Learning Computer Science (Python's Version)"
 description: 'A simple take on learning your first programming language'
 created: 2024-12-19
 authors: ["Pranav"]
-tags: ["Essay"]
+tags: ["essay"]
 ---
 
 ### Focusing on a programming language (Python)

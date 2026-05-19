@@ -4,7 +4,7 @@ description: "A simple and straightforward guide to becoming a tech bro"
 created: 2025-02-09
 lastModified: 2025-07-17
 authors: ["Pranav"]
-tags: ["Post"]
+tags: ["post"]
 ---
 
 The word Tech-Bro can range from being a weird guy to a the normal, depending on your location of living. However, this post is focussed for people who actually want to get good and actually understand the technical things in the daily life. The reason I'm writing this post is for my friends to understand and learn, what I actually do and why I do it, and more importantly how can they do it too.

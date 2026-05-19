@@ -3,7 +3,7 @@ title: "The World in Verticals [DRAFT]"
 description: "A taxonomy of the entire economic output of the world, to better understand and quantize progress across various \"Verticals\""
 created: 2025-07-11
 authors: ["Pranav", "Hrithikesh"]
-tags: ["Essay"]
+tags: ["essay"]
 ---
 
 ## What is a Vertical

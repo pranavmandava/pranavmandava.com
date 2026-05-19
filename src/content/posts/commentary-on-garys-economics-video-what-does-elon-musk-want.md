@@ -3,7 +3,7 @@ title: "Commentary on Gary's Economics Video: What Does Elon Musk Want?"
 description: "An analysis of Gary's Economics video, exploring the claims made by Elon Musk and the implications for society."
 created: 2025-02-11
 authors: ["Pranav"]
-tags: ["Commentary"]
+tags: ["commentary"]
 ---
 
 [Link to the video](https://www.youtube.com/watch?v=wPoXOwiEfrQ)

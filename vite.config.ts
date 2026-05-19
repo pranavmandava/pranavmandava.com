@@ -5,6 +5,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { fileURLToPath, URL } from "url";
 import { defineConfig } from "vite";
+import { tagStorePlugin } from "./vite-plugins/tag-store";
 
 const config = defineConfig({
   resolve: {
@@ -14,6 +15,7 @@ const config = defineConfig({
     tsconfigPaths: true,
   },
   plugins: [
+    tagStorePlugin(),
     tailwindcss(),
     devtools(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),

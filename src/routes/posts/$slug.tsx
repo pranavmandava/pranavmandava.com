@@ -1,6 +1,8 @@
 import type { Post } from "@/lib/posts"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { createServerFn } from "@tanstack/react-start"
+import { TagBadge } from "@/components/TagBadge"
+import { tagLabel } from "@/lib/tags"
 
 const fetchPost = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
@@ -15,18 +17,20 @@ export const Route = createFileRoute("/posts/$slug")({
   loader: ({ params }) => fetchPost({ data: { slug: params.slug } }),
   head: ({ loaderData }) => {
     const post = loaderData as Post
-    // Site URL - update this with your actual domain when deploying
     const siteUrl = process.env.SITE_URL || "https://pranavmandava.com"
     const postUrl = `${siteUrl}/posts/${post.slug}`
     const publishedDate = new Date(post.created).toISOString()
-    const modifiedDate = post.lastModified ? new Date(post.lastModified).toISOString() : publishedDate
+    const modifiedDate = post.lastModified
+      ? new Date(post.lastModified).toISOString()
+      : publishedDate
+    const keywords = post.tags.map(tagLabel).join(", ")
 
     return {
       meta: [
         { title: `${post.title} | Pranav Mandava` },
         { name: "description", content: post.description },
         { name: "author", content: post.authors.join(", ") },
-        { name: "keywords", content: post.tags.join(", ") },
+        { name: "keywords", content: keywords },
         { property: "og:title", content: post.title },
         { property: "og:description", content: post.description },
         { property: "og:type", content: "article" },
@@ -34,14 +38,12 @@ export const Route = createFileRoute("/posts/$slug")({
         { property: "article:published_time", content: publishedDate },
         { property: "article:modified_time", content: modifiedDate },
         { property: "article:author", content: post.authors.join(", ") },
-        { property: "article:tag", content: post.tags.join(", ") },
+        { property: "article:tag", content: keywords },
         { name: "twitter:card", content: "summary" },
         { name: "twitter:title", content: post.title },
         { name: "twitter:description", content: post.description },
       ],
-      links: [
-        { rel: "canonical", href: postUrl },
-      ],
+      links: [{ rel: "canonical", href: postUrl }],
       scripts: [
         {
           type: "application/ld+json",
@@ -57,7 +59,7 @@ export const Route = createFileRoute("/posts/$slug")({
             datePublished: publishedDate,
             dateModified: modifiedDate,
             url: postUrl,
-            keywords: post.tags.join(", "),
+            keywords,
           }),
         },
       ],
@@ -73,33 +75,31 @@ function PostPage() {
     <article>
       <Link
         to="/"
-        className="text-xs text-amber-600 hover:text-amber-800 hover:underline mb-6 inline-block"
+        className="mb-6 inline-block text-xs text-muted-foreground hover:text-primary hover:underline"
       >
         ← Back to posts
       </Link>
 
       <header className="mb-8">
-        <h1 className="text-xl font-bold text-amber-800 mb-2">{post.title}</h1>
-        <p className="text-sm text-amber-600/80 mb-2">{post.description}</p>
-        <p className="text-xs text-amber-600/60">
+        <h1 className="mb-2 text-xl font-bold text-foreground">{post.title}</h1>
+        <p className="mb-2 text-sm text-muted-foreground">{post.description}</p>
+        <p className="text-xs text-muted-foreground/80">
           {post.created}
           {post.lastModified && ` · Updated ${post.lastModified}`}
           {" · "}
           {post.authors.join(", ")}
         </p>
+        {post.tags.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {post.tags.map((slug) => (
+              <TagBadge key={slug} slug={slug} relTag />
+            ))}
+          </div>
+        )}
       </header>
 
       <div
-        className="prose prose-sm prose-amber max-w-none
-          prose-headings:text-amber-800 prose-headings:font-semibold
-          prose-p:text-amber-900/80 prose-p:leading-relaxed
-          prose-a:text-amber-700 prose-a:underline hover:prose-a:text-amber-900
-          prose-strong:text-amber-800
-          prose-code:text-amber-800 prose-code:bg-amber-100 prose-code:px-1 prose-code:rounded
-          prose-pre:bg-amber-100 prose-pre:text-amber-900
-          prose-blockquote:border-amber-300 prose-blockquote:text-amber-700
-          prose-li:text-amber-900/80
-          prose-table:text-sm prose-th:text-amber-800 prose-td:text-amber-900/80"
+        className="prose-blog"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
     </article>

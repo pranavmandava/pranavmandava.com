@@ -1,25 +1,41 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router"
+import { Separator } from "@/components/ui/separator"
 
 export function Sidebar() {
   return (
-    <aside className="w-full lg:w-[30%] lg:fixed lg:left-0 lg:top-0 lg:h-screen p-6 lg:p-12 border-b lg:border-b-0 lg:border-r border-amber-200">
+    <aside className="w-full border-b border-border bg-sidebar p-6 lg:fixed lg:left-0 lg:top-0 lg:h-screen lg:w-[30%] lg:border-b-0 lg:border-r lg:p-12">
       <Link to="/" className="block">
-        <h1 className="text-2xl font-bold text-amber-700 mb-4">
-          Pranav Mandava
-        </h1>
+        <h1 className="mb-4 text-2xl font-bold text-primary">Pranav Mandava</h1>
       </Link>
 
-      <p className="text-sm text-amber-900/80 leading-relaxed mb-4">
+      <p className="mb-4 text-sm leading-relaxed text-foreground/80">
         M.S Computer Science at ASU (May 2027). Future Space Explorer and
         Computer Nerd. Techno-Optimist.
       </p>
 
-      <div className="flex gap-4 mb-6">
+      <nav className="mb-6 flex gap-4 text-sm">
+        <Link
+          to="/"
+          className="text-primary hover:text-foreground hover:underline"
+          activeProps={{ className: "font-semibold text-foreground" }}
+        >
+          Posts
+        </Link>
+        <Link
+          to="/tags"
+          className="text-primary hover:text-foreground hover:underline"
+          activeProps={{ className: "font-semibold text-foreground" }}
+        >
+          Tags
+        </Link>
+      </nav>
+
+      <div className="mb-6 flex gap-4">
         <a
           href="https://github.com/pranavtechie"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-amber-700 hover:text-amber-900"
+          className="text-primary hover:text-foreground"
           aria-label="GitHub"
         >
           <svg
@@ -36,7 +52,7 @@ export function Sidebar() {
           href="https://x.com/pranavmandava"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-amber-700 hover:text-amber-900 text-xl leading-none"
+          className="text-xl leading-none text-primary hover:text-foreground"
           aria-label="X (Twitter)"
         >
           𝕏
@@ -45,7 +61,7 @@ export function Sidebar() {
           href="https://www.instagram.com/pranavmandava"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-amber-700 hover:text-amber-900"
+          className="text-primary hover:text-foreground"
           aria-label="Instagram"
         >
           <svg
@@ -62,7 +78,7 @@ export function Sidebar() {
           href="https://www.linkedin.com/in/pranavtechie/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-amber-700 hover:text-amber-900"
+          className="text-primary hover:text-foreground"
           aria-label="LinkedIn"
         >
           <svg
@@ -77,10 +93,12 @@ export function Sidebar() {
         </a>
       </div>
 
+      <Separator className="mb-6" />
+
       <div>
-        <h4 className="text-amber-800 text-lg font-semibold mb-2">NOW</h4>
-        <ul className="text-amber-900/80 text-sm flex flex-col gap-4">
-          <li className="">
+        <h4 className="mb-2 text-lg font-semibold text-foreground">NOW</h4>
+        <ul className="flex flex-col gap-4 text-sm text-foreground/80">
+          <li>
             Working at{" "}
             <a className="underline" href="https://arc-systems.org/">
               ARCS
@@ -102,5 +120,5 @@ export function Sidebar() {
         </ul>
       </div>
     </aside>
-  );
+  )
 }

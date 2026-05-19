@@ -10,4 +10,5 @@ count.txt
 .wrangler
 .output
 .vinxi
+src/generated/tag-store.ts
 todos.json

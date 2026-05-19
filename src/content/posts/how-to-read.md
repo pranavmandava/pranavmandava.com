@@ -4,7 +4,7 @@ description: "A guide to understand the principles that help humans comprehend a
 created: 2025-10-30
 lastModified: 2025-10-30
 authors: ["Pranav"]
-tags: ["Post"]
+tags: ["post"]
 ---
 
 ## Taxonomy of Reading

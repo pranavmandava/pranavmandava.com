@@ -3,6 +3,8 @@ import rehypeStringify from "rehype-stringify"
 import { remark } from "remark"
 import remarkGfm from "remark-gfm"
 import remarkRehype from "remark-rehype"
+import { getTagBySlug, tags as tagStore } from "@/generated/tag-store"
+import { normalizeTags } from "./tags"
 import type { Post, PostMeta } from "./posts"
 
 const postModules = import.meta.glob("/src/content/posts/*.md", {
@@ -11,34 +13,34 @@ const postModules = import.meta.glob("/src/content/posts/*.md", {
   eager: true,
 }) as Record<string, string>
 
-function parsePost(filePath: string, content: string): PostMeta {
-  const slug = filePath.split("/").pop()!.replace(/\.md$/, "")
-  const { data } = matter(content)
+function formatDate(value: unknown): string | undefined {
+  if (value == null) return undefined
+  if (value instanceof Date) return value.toISOString().split("T")[0]
+  return String(value)
+}
 
+function postMetaFromMatter(slug: string, data: Record<string, unknown>): PostMeta {
   return {
     slug,
-    title: data.title,
-    description: data.description,
-    created:
-      data.created instanceof Date
-        ? data.created.toISOString().split("T")[0]
-        : String(data.created),
-    lastModified: data.lastModified
-      ? data.lastModified instanceof Date
-        ? data.lastModified.toISOString().split("T")[0]
-        : String(data.lastModified)
-      : undefined,
-    authors: data.authors,
-    tags: data.tags,
+    title: String(data.title ?? ""),
+    description: String(data.description ?? ""),
+    created: formatDate(data.created) ?? "",
+    lastModified: formatDate(data.lastModified),
+    authors: Array.isArray(data.authors) ? data.authors.map(String) : [],
+    tags: normalizeTags(data.tags),
   }
 }
 
+function parsePost(filePath: string, content: string): PostMeta {
+  const slug = filePath.split("/").pop()!.replace(/\.md$/, "")
+  const { data } = matter(content)
+  return postMetaFromMatter(slug, data as Record<string, unknown>)
+}
+
 export function getAllPosts(): PostMeta[] {
-  const posts = Object.entries(postModules)
+  return Object.entries(postModules)
     .map(([path, content]) => parsePost(path, content))
     .sort((a, b) => (a.created > b.created ? -1 : 1))
-
-  return posts
 }
 
 export async function getPost(slug: string): Promise<Post | null> {
@@ -56,24 +58,10 @@ export async function getPost(slug: string): Promise<Post | null> {
     .use(remarkRehype)
     .use(rehypeStringify)
     .process(markdownContent)
-  const content = processedContent.toString()
 
   return {
-    slug,
-    title: data.title,
-    description: data.description,
-    created:
-      data.created instanceof Date
-        ? data.created.toISOString().split("T")[0]
-        : String(data.created),
-    lastModified: data.lastModified
-      ? data.lastModified instanceof Date
-        ? data.lastModified.toISOString().split("T")[0]
-        : String(data.lastModified)
-      : undefined,
-    authors: data.authors,
-    tags: data.tags,
-    content,
+    ...postMetaFromMatter(slug, data as Record<string, unknown>),
+    content: processedContent.toString(),
   }
 }
 
@@ -82,3 +70,13 @@ export function getAllPostSlugs(): string[] {
     path.split("/").pop()!.replace(/\.md$/, "")
   )
 }
+
+export function getPostsByTagSlug(tagSlug: string): PostMeta[] {
+  const record = getTagBySlug(tagSlug)
+  if (!record) return []
+
+  const slugSet = new Set(record.postSlugs)
+  return getAllPosts().filter((post) => slugSet.has(post.slug))
+}
+
+export { tagStore, getTagBySlug }

@@ -3,7 +3,7 @@ title: "A new era in Higher Education [DRAFT]"
 description: "A retro-actively written manifesto for providing highest possible care for the wellbeing and development of students"
 created: 2025-04-04
 authors: ["Pranav", "Hrithikesh"]
-tags: ["Essay"]
+tags: ["essay"]
 ---
 
 Today is the last day of our Bachelor's Program. This post is written by me and my close friend Hrithikesh C. This post is an open letter to all universities and students alike on how to make our current education system better across the board from administration to academics (from the perspective of Student). This was prompted as a thought experiment, "_What would we do if we replaced the person with the highest agency and authority, who is responsible for the university_".

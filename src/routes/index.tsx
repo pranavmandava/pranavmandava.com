@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { createServerFn } from "@tanstack/react-start"
+import { PostList } from "@/components/PostList"
 import type { PostMeta } from "@/lib/posts"
 
 const getPosts = createServerFn({ method: "GET" }).handler(async () => {
@@ -12,18 +13,31 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Pranav Mandava - Posts" },
-      { name: "description", content: "Personal website and blog of Pranav Mandava - M.S Computer Science at ASU. Essays, thoughts, and writings on technology, computer science, and more." },
+      {
+        name: "description",
+        content:
+          "Personal website and blog of Pranav Mandava - M.S Computer Science at ASU. Essays, thoughts, and writings on technology, computer science, and more.",
+      },
       { property: "og:title", content: "Pranav Mandava - Posts" },
-      { property: "og:description", content: "Personal website and blog of Pranav Mandava - M.S Computer Science at ASU" },
+      {
+        property: "og:description",
+        content:
+          "Personal website and blog of Pranav Mandava - M.S Computer Science at ASU",
+      },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: process.env.SITE_URL || "https://pranavmandava.com" },
+      {
+        property: "og:url",
+        content: process.env.SITE_URL || "https://pranavmandava.com",
+      },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "Pranav Mandava - Posts" },
-      { name: "twitter:description", content: "Personal website and blog of Pranav Mandava - M.S Computer Science at ASU" },
+      {
+        name: "twitter:description",
+        content:
+          "Personal website and blog of Pranav Mandava - M.S Computer Science at ASU",
+      },
     ],
-    links: [
-      { rel: "canonical", href: "/" },
-    ],
+    links: [{ rel: "canonical", href: "/" }],
   }),
   component: HomePage,
 })
@@ -33,25 +47,16 @@ function HomePage() {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold text-amber-800 mb-8">Posts</h2>
-      <ul className="space-y-6">
-        {posts.map((post: PostMeta) => (
-          <li key={post.slug}>
-            <Link
-              to="/posts/$slug"
-              params={{ slug: post.slug }}
-              className="group block"
-            >
-              <h3 className="text-amber-700 group-hover:text-amber-900 group-hover:underline">
-                {post.title}
-              </h3>
-              <p className="text-xs text-amber-600/70 mt-1">
-                {post.created} · {post.tags.join(", ")}
-              </p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="mb-8 flex items-baseline justify-between gap-4">
+        <h2 className="text-lg font-semibold text-foreground">Posts</h2>
+        <Link
+          to="/tags"
+          className="text-xs text-muted-foreground hover:text-primary hover:underline"
+        >
+          Browse tags →
+        </Link>
+      </div>
+      <PostList posts={posts as PostMeta[]} />
     </div>
   )
 }
