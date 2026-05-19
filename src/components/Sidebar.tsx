@@ -111,7 +111,7 @@ export function Sidebar() {
             <a className="underline" href="https://arc-systems.org/">
               ARCS
             </a>{" "}
-            to build a 500 lbf propulsive landier for the{" "}
+            to build a 500 lbf propulsive lander for the{" "}
             <a
               className="underline"
               href="https://www.definityeducation.org/lander-challenge"
