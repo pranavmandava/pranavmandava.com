@@ -122,10 +122,14 @@
   body {
     @apply bg-background font-sans text-foreground;
   }
-  a:not([data-slot="badge"]):not([data-slot="button"]) {
+  a:not([data-slot="badge"]):not([data-slot="button"]):not(
+      :has(> svg:only-child)
+    ) {
     @apply text-primary underline underline-offset-2 decoration-primary/50 transition-colors;
   }
-  a:not([data-slot="badge"]):not([data-slot="button"]):hover {
+  a:not([data-slot="badge"]):not([data-slot="button"]):not(
+      :has(> svg:only-child)
+    ):hover {
     @apply text-foreground decoration-foreground/70;
   }
 }
