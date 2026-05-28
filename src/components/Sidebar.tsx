@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router"
-import { Separator } from "@/components/ui/separator"
+import { Link } from "@tanstack/react-router";
+import { Separator } from "@/components/ui/separator";
 
 export function Sidebar() {
   return (
@@ -32,7 +32,7 @@ export function Sidebar() {
 
       <div className="mb-6 flex gap-4">
         <a
-          href="https://github.com/pranavtechie"
+          href="https://github.com/pranavmandava"
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary hover:text-foreground"
@@ -128,5 +128,5 @@ export function Sidebar() {
         </ul>
       </div>
     </aside>
-  )
+  );
 }
