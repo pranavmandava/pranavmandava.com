@@ -1,6 +1,6 @@
 ---
 title: "Getting my Amateur Radio Technician License"
-created: 2025-06-06
+created: 2026-06-06
 status: done
 authors: ["Pranav Mandava"]
 tags: ["amateur-radio", "side-quest"]
