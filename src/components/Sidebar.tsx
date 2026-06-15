@@ -28,13 +28,6 @@ export function Sidebar() {
         >
           Tags
         </Link>
-        <Link
-          to="/quests"
-          className="text-primary hover:text-foreground hover:underline"
-          activeProps={{ className: "font-semibold text-foreground" }}
-        >
-          Side Quests
-        </Link>
       </nav>
 
       <div className="mb-6 flex gap-4">

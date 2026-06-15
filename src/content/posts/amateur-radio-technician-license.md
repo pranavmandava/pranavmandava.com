@@ -1,9 +1,9 @@
 ---
 title: "Getting my Amateur Radio Technician License"
-description: "How I set up this personal site with TanStack Start, Cloudflare, and markdown-based content."
 created: 2025-06-06
 status: done
-tags: ["amateur-radio"]
+authors: ["Pranav Mandava"]
+tags: ["amateur-radio", "side-quest"]
 ---
 
 In the great nation of the United States of America you are required to have an Amateur Radio License to transmit any kind of Radio signals. So, naturally I had to get one, if I ever had a hope of transmitting to a cubesat or learn more about RF stuff (not really, bu but it's cool).

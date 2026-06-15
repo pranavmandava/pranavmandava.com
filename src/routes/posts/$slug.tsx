@@ -88,6 +88,18 @@ function PostPage() {
           {post.lastModified && ` · Updated ${post.lastModified}`}
           {" · "}
           {post.authors.join(", ")}
+          {post.status && (
+            <>
+              {" · "}
+              <span className={
+                post.status === "done" ? "text-green-600 dark:text-green-400" :
+                post.status === "in-progress" ? "text-amber-600 dark:text-amber-400" :
+                "text-muted-foreground"
+              }>
+                {post.status === "in-progress" ? "in progress" : post.status}
+              </span>
+            </>
+          )}
         </p>
         {post.tags.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1.5">

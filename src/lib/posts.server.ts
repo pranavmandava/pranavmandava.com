@@ -28,6 +28,7 @@ function postMetaFromMatter(slug: string, data: Record<string, unknown>): PostMe
     lastModified: formatDate(data.lastModified),
     authors: Array.isArray(data.authors) ? data.authors.map(String) : [],
     tags: normalizeTags(data.tags),
+    status: (data.status as PostMeta["status"]) ?? undefined,
   }
 }
 
