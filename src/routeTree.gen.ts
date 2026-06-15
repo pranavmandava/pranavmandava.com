@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TagsIndexRouteImport } from './routes/tags/index'
+import { Route as QuestsIndexRouteImport } from './routes/quests/index'
 import { Route as TagsTagRouteImport } from './routes/tags/$tag'
+import { Route as QuestsSlugRouteImport } from './routes/quests/$slug'
 import { Route as PostsSlugRouteImport } from './routes/posts/$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -24,9 +26,19 @@ const TagsIndexRoute = TagsIndexRouteImport.update({
   path: '/tags/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuestsIndexRoute = QuestsIndexRouteImport.update({
+  id: '/quests/',
+  path: '/quests/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TagsTagRoute = TagsTagRouteImport.update({
   id: '/tags/$tag',
   path: '/tags/$tag',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestsSlugRoute = QuestsSlugRouteImport.update({
+  id: '/quests/$slug',
+  path: '/quests/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PostsSlugRoute = PostsSlugRouteImport.update({
@@ -38,34 +50,61 @@ const PostsSlugRoute = PostsSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/posts/$slug': typeof PostsSlugRoute
+  '/quests/$slug': typeof QuestsSlugRoute
   '/tags/$tag': typeof TagsTagRoute
+  '/quests/': typeof QuestsIndexRoute
   '/tags/': typeof TagsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/posts/$slug': typeof PostsSlugRoute
+  '/quests/$slug': typeof QuestsSlugRoute
   '/tags/$tag': typeof TagsTagRoute
+  '/quests': typeof QuestsIndexRoute
   '/tags': typeof TagsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/posts/$slug': typeof PostsSlugRoute
+  '/quests/$slug': typeof QuestsSlugRoute
   '/tags/$tag': typeof TagsTagRoute
+  '/quests/': typeof QuestsIndexRoute
   '/tags/': typeof TagsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/posts/$slug' | '/tags/$tag' | '/tags/'
+  fullPaths:
+    | '/'
+    | '/posts/$slug'
+    | '/quests/$slug'
+    | '/tags/$tag'
+    | '/quests/'
+    | '/tags/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/posts/$slug' | '/tags/$tag' | '/tags'
-  id: '__root__' | '/' | '/posts/$slug' | '/tags/$tag' | '/tags/'
+  to:
+    | '/'
+    | '/posts/$slug'
+    | '/quests/$slug'
+    | '/tags/$tag'
+    | '/quests'
+    | '/tags'
+  id:
+    | '__root__'
+    | '/'
+    | '/posts/$slug'
+    | '/quests/$slug'
+    | '/tags/$tag'
+    | '/quests/'
+    | '/tags/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PostsSlugRoute: typeof PostsSlugRoute
+  QuestsSlugRoute: typeof QuestsSlugRoute
   TagsTagRoute: typeof TagsTagRoute
+  QuestsIndexRoute: typeof QuestsIndexRoute
   TagsIndexRoute: typeof TagsIndexRoute
 }
 
@@ -85,11 +124,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TagsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quests/': {
+      id: '/quests/'
+      path: '/quests'
+      fullPath: '/quests/'
+      preLoaderRoute: typeof QuestsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tags/$tag': {
       id: '/tags/$tag'
       path: '/tags/$tag'
       fullPath: '/tags/$tag'
       preLoaderRoute: typeof TagsTagRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quests/$slug': {
+      id: '/quests/$slug'
+      path: '/quests/$slug'
+      fullPath: '/quests/$slug'
+      preLoaderRoute: typeof QuestsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/posts/$slug': {
@@ -105,7 +158,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PostsSlugRoute: PostsSlugRoute,
+  QuestsSlugRoute: QuestsSlugRoute,
   TagsTagRoute: TagsTagRoute,
+  QuestsIndexRoute: QuestsIndexRoute,
   TagsIndexRoute: TagsIndexRoute,
 }
 export const routeTree = rootRouteImport
